@@ -1,0 +1,38 @@
+steps:
+  # Build the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'northamerica-northeast1-docker.pkg.dev/ferrousy-website/ferrousy-repo/ferrousy-site:$BUILD_ID'
+      - '-t'
+      - 'northamerica-northeast1-docker.pkg.dev/ferrousy-website/ferrousy-repo/ferrousy-site:latest'
+      - '.'
+
+  # Push the image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - '--all-tags'
+      - 'northamerica-northeast1-docker.pkg.dev/ferrousy-website/ferrousy-repo/ferrousy-site'
+
+  # Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'ferrousy-site'
+      - '--image'
+      - 'northamerica-northeast1-docker.pkg.dev/ferrousy-website/ferrousy-repo/ferrousy-site:$BUILD_ID'
+      - '--region'
+      - 'northamerica-northeast1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--max-instances=3'
+      - '--port=8080'
+
+images:
+  - 'northamerica-northeast1-docker.pkg.dev/ferrousy-website/ferrousy-repo/ferrousy-site:$BUILD_ID'
+  - 'northamerica-northeast1-docker.pkg.dev/ferrousy-website/ferrousy-repo/ferrousy-site:latest'
