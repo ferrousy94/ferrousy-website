@@ -437,6 +437,17 @@ body {
     text-decoration: underline;
 }
 
+/* Tool Link Card */
+.tool-link-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s;
+}
+.tool-link-card:hover {
+    transform: translateY(-2px);
+}
+
 /* Footer */
 .dashboard-footer {
     text-align: center;

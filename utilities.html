@@ -25,46 +25,90 @@
 
         <main class="dashboard-grid">
             <!-- GO Transit Widget -->
-            <section class="widget transit-widget" id="go-transit-widget">
+            <section class="widget transit-widget transit-widget-full" id="go-transit-widget">
                 <header class="widget-header">
                     <h2>🚆 GO Transit</h2>
-                    <span class="status-badge status-good">Good Service</span>
+                    <div class="widget-header-right">
+                        <span class="refresh-timer" id="refresh-timer"></span>
+                        <button class="btn-icon" id="refresh-btn" title="Refresh now">↻</button>
+                        <button class="btn-icon" id="settings-btn" title="API Settings">⚙️</button>
+                    </div>
                 </header>
                 <div class="widget-body">
-                    <div class="trip-planner">
-                        <div class="input-group">
-                            <label for="station-from">From</label>
-                            <select id="station-from">
-                                <option>Union Station</option>
-                                <option>Exhibition</option>
-                                <option>Port Credit</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <label for="station-to">To</label>
-                            <select id="station-to">
-                                <option>Oakville</option>
-                                <option>Aldershot</option>
-                                <option>Hamilton</option>
-                            </select>
+                    <!-- API Key Setup (shown when no key is stored) -->
+                    <div id="api-key-setup" class="api-key-setup">
+                        <div class="setup-icon">🔑</div>
+                        <h3>Connect to GO Transit</h3>
+                        <p>Enter your free Metrolinx Open Data API key to get live schedules, platforms, and service alerts.</p>
+                        <a href="https://api.openmetrolinx.com/OpenDataAPI/Help/Registration/en" target="_blank" class="setup-link">Get a free API key →</a>
+                        <div class="setup-input">
+                            <input type="text" id="api-key-input" placeholder="Paste your API key here">
+                            <button id="save-key-btn" class="btn-save">Connect</button>
                         </div>
                     </div>
-                    <div class="departures-list">
-                        <div class="departure-item">
-                            <div class="departure-line line-lakeshore-west">LW</div>
-                            <div class="departure-info">
-                                <strong>Aldershot GO</strong>
-                                <span>Track 5</span>
-                            </div>
-                            <div class="departure-time">9:45 PM</div>
+
+                    <!-- Live Data (shown when key is stored) -->
+                    <div id="go-live-data" class="go-live-data" style="display: none;">
+                        <!-- Tabs -->
+                        <div class="go-tabs">
+                            <button class="go-tab active" data-tab="departures">Departures</button>
+                            <button class="go-tab" data-tab="status">Line Status</button>
+                            <button class="go-tab" data-tab="alerts">Alerts</button>
                         </div>
-                        <div class="departure-item">
-                            <div class="departure-line line-lakeshore-west">LW</div>
-                            <div class="departure-info">
-                                <strong>West Harbour GO</strong>
-                                <span>Track 6</span>
+
+                        <!-- Departures Tab -->
+                        <div class="go-tab-content active" id="tab-departures">
+                            <div class="station-selector">
+                                <label for="station-select">Station</label>
+                                <select id="station-select">
+                                    <option value="UN">Union Station</option>
+                                    <option value="EX">Exhibition</option>
+                                    <option value="MI">Mimico</option>
+                                    <option value="LO">Long Branch</option>
+                                    <option value="PC">Port Credit</option>
+                                    <option value="CL">Clarkson</option>
+                                    <option value="OA">Oakville</option>
+                                    <option value="BR">Bronte</option>
+                                    <option value="AP">Appleby</option>
+                                    <option value="BU">Burlington</option>
+                                    <option value="AL">Aldershot</option>
+                                    <option value="HA">Hamilton</option>
+                                    <option value="WR">West Harbour</option>
+                                    <option value="DA">Danforth</option>
+                                    <option value="SC">Scarborough</option>
+                                    <option value="EG">Eglinton</option>
+                                    <option value="GU">Guildwood</option>
+                                    <option value="RO">Rouge Hill</option>
+                                    <option value="PI">Pickering</option>
+                                    <option value="AJ">Ajax</option>
+                                    <option value="WH">Whitby</option>
+                                    <option value="OS">Oshawa</option>
+                                    <option value="BO">Bramalea</option>
+                                    <option value="MO">Mount Pleasant</option>
+                                    <option value="GE">Georgetown</option>
+                                    <option value="NE">Newmarket</option>
+                                    <option value="EA">East Gwillimbury</option>
+                                    <option value="BA">Barrie South</option>
+                                    <option value="AD">Allandale Waterfront</option>
+                                </select>
                             </div>
-                            <div class="departure-time">10:15 PM</div>
+                            <div id="departures-container" class="departures-container">
+                                <div class="loading-spinner">Loading departures...</div>
+                            </div>
+                        </div>
+
+                        <!-- Line Status Tab -->
+                        <div class="go-tab-content" id="tab-status">
+                            <div id="line-status-container">
+                                <div class="loading-spinner">Loading line status...</div>
+                            </div>
+                        </div>
+
+                        <!-- Alerts Tab -->
+                        <div class="go-tab-content" id="tab-alerts">
+                            <div id="alerts-container">
+                                <div class="loading-spinner">Loading alerts...</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -187,6 +231,20 @@
                         </li>
                     </ul>
                 </div>
+            </section>
+
+            <!-- What People Paid Link -->
+            <section class="widget" id="prices-widget">
+                <a href="whatpeoplepaid.html" class="tool-link-card">
+                    <header class="widget-header" style="border-top: 4px solid #00d4aa; background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 100%);">
+                        <h2>🚗 What People Paid</h2>
+                        <span class="status-badge" style="background: #dcfce7; color: #166534;">New</span>
+                    </header>
+                    <div class="widget-body">
+                        <p style="color: #64748b; margin-bottom: 0.5rem;">See what people actually paid for their cars. Crowdsourced, transparent pricing data.</p>
+                        <span style="font-weight: 600; color: #0ea5e9;">Open tool →</span>
+                    </div>
+                </a>
             </section>
         </main>
 

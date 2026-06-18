@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What People Paid — Real Car Prices</title>
+    <meta name="description" content="See what people actually paid for their cars. Crowdsourced, transparent car pricing data.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="whatpeoplepaid.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <!-- Header -->
+        <header class="page-header">
+            <div class="header-inner">
+                <div>
+                    <a href="utilities.html" class="back-link">← Back to Utilities</a>
+                    <h1 class="page-title">What People Paid</h1>
+                    <p class="page-subtitle">Real prices from real buyers. No dealer markup mystery.</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stats-inner">
+                <div class="stat">
+                    <span class="stat-value" id="stat-total">—</span>
+                    <span class="stat-label">Submissions</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" id="stat-avg-price">—</span>
+                    <span class="stat-label">Avg Price</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" id="stat-avg-discount">—</span>
+                    <span class="stat-label">Avg Off MSRP</span>
+                </div>
+            </div>
+        </div>
+
+        <main class="main-content">
+            <!-- Submit Section -->
+            <section class="submit-section">
+                <button class="submit-toggle" id="submit-toggle">
+                    <span>＋ Share What You Paid</span>
+                </button>
+
+                <form class="submit-form" id="submit-form" style="display: none;">
+                    <h2 class="form-title">Share Your Purchase</h2>
+                    <p class="form-desc">All submissions are anonymous. Help others negotiate better deals.</p>
+
+                    <div class="form-grid">
+                        <!-- Make -->
+                        <div class="form-group">
+                            <label for="input-make">Make <span class="required">*</span></label>
+                            <select id="input-make" required>
+                                <option value="">Select Make</option>
+                                <option value="Acura">Acura</option>
+                                <option value="Audi">Audi</option>
+                                <option value="BMW">BMW</option>
+                                <option value="Buick">Buick</option>
+                                <option value="Cadillac">Cadillac</option>
+                                <option value="Chevrolet">Chevrolet</option>
+                                <option value="Chrysler">Chrysler</option>
+                                <option value="Dodge">Dodge</option>
+                                <option value="Ford">Ford</option>
+                                <option value="Genesis">Genesis</option>
+                                <option value="GMC">GMC</option>
+                                <option value="Honda">Honda</option>
+                                <option value="Hyundai">Hyundai</option>
+                                <option value="Infiniti">Infiniti</option>
+                                <option value="Jaguar">Jaguar</option>
+                                <option value="Jeep">Jeep</option>
+                                <option value="Kia">Kia</option>
+                                <option value="Land Rover">Land Rover</option>
+                                <option value="Lexus">Lexus</option>
+                                <option value="Lincoln">Lincoln</option>
+                                <option value="Mazda">Mazda</option>
+                                <option value="Mercedes-Benz">Mercedes-Benz</option>
+                                <option value="Mini">Mini</option>
+                                <option value="Mitsubishi">Mitsubishi</option>
+                                <option value="Nissan">Nissan</option>
+                                <option value="Porsche">Porsche</option>
+                                <option value="Ram">Ram</option>
+                                <option value="Subaru">Subaru</option>
+                                <option value="Tesla">Tesla</option>
+                                <option value="Toyota">Toyota</option>
+                                <option value="Volkswagen">Volkswagen</option>
+                                <option value="Volvo">Volvo</option>
+                                <option value="__other__">Other (type below)</option>
+                            </select>
+                        </div>
+
+                        <!-- Custom Make (hidden by default) -->
+                        <div class="form-group" id="custom-make-group" style="display: none;">
+                            <label for="input-custom-make">Custom Make <span class="required">*</span></label>
+                            <input type="text" id="input-custom-make" placeholder="e.g. Rivian, Polestar">
+                        </div>
+
+                        <!-- Model -->
+                        <div class="form-group">
+                            <label for="input-model">Model <span class="required">*</span></label>
+                            <input type="text" id="input-model" placeholder="e.g. Camry, Civic, Model 3" required>
+                        </div>
+
+                        <!-- Year -->
+                        <div class="form-group">
+                            <label for="input-year">Year <span class="required">*</span></label>
+                            <select id="input-year" required>
+                                <option value="">Select Year</option>
+                            </select>
+                        </div>
+
+                        <!-- Trim -->
+                        <div class="form-group">
+                            <label for="input-trim">Trim</label>
+                            <input type="text" id="input-trim" placeholder="e.g. SE, Sport, Limited">
+                        </div>
+
+                        <!-- Condition -->
+                        <div class="form-group">
+                            <label for="input-condition">Condition <span class="required">*</span></label>
+                            <select id="input-condition" required>
+                                <option value="">Select</option>
+                                <option value="new">New</option>
+                                <option value="used">Used</option>
+                            </select>
+                        </div>
+
+                        <!-- Price Paid -->
+                        <div class="form-group">
+                            <label for="input-price">Price Paid (CAD) <span class="required">*</span></label>
+                            <input type="number" id="input-price" placeholder="e.g. 34500" min="0" step="100" required>
+                        </div>
+
+                        <!-- MSRP -->
+                        <div class="form-group">
+                            <label for="input-msrp">MSRP (optional)</label>
+                            <input type="number" id="input-msrp" placeholder="e.g. 36000" min="0" step="100">
+                        </div>
+
+                        <!-- Province -->
+                        <div class="form-group">
+                            <label for="input-province">Province <span class="required">*</span></label>
+                            <select id="input-province" required>
+                                <option value="">Select Province</option>
+                                <option value="AB">Alberta</option>
+                                <option value="BC">British Columbia</option>
+                                <option value="MB">Manitoba</option>
+                                <option value="NB">New Brunswick</option>
+                                <option value="NL">Newfoundland & Labrador</option>
+                                <option value="NS">Nova Scotia</option>
+                                <option value="ON">Ontario</option>
+                                <option value="PE">Prince Edward Island</option>
+                                <option value="QC">Quebec</option>
+                                <option value="SK">Saskatchewan</option>
+                            </select>
+                        </div>
+
+                        <!-- Month Purchased -->
+                        <div class="form-group">
+                            <label for="input-date">Month Purchased <span class="required">*</span></label>
+                            <input type="month" id="input-date" required>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-submit" id="btn-submit">Submit</button>
+                        <button type="button" class="btn-cancel" id="btn-cancel">Cancel</button>
+                    </div>
+                    <div class="form-message" id="form-message"></div>
+                </form>
+            </section>
+
+            <!-- Filter & Table Section -->
+            <section class="data-section">
+                <div class="filters-bar">
+                    <h2 class="data-title">Recent Submissions</h2>
+                    <div class="filters">
+                        <select id="filter-make" class="filter-select">
+                            <option value="">All Makes</option>
+                        </select>
+                        <select id="filter-condition" class="filter-select">
+                            <option value="">New & Used</option>
+                            <option value="new">New Only</option>
+                            <option value="used">Used Only</option>
+                        </select>
+                        <select id="filter-province" class="filter-select">
+                            <option value="">All Provinces</option>
+                            <option value="AB">AB</option>
+                            <option value="BC">BC</option>
+                            <option value="MB">MB</option>
+                            <option value="NB">NB</option>
+                            <option value="NL">NL</option>
+                            <option value="NS">NS</option>
+                            <option value="ON">ON</option>
+                            <option value="PE">PE</option>
+                            <option value="QC">QC</option>
+                            <option value="SK">SK</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table class="data-table" id="data-table">
+                        <thead>
+                            <tr>
+                                <th data-sort="make" class="sortable">Make ↕</th>
+                                <th data-sort="model" class="sortable">Model ↕</th>
+                                <th data-sort="year" class="sortable">Year ↕</th>
+                                <th>Trim</th>
+                                <th>Cond.</th>
+                                <th data-sort="pricePaid" class="sortable">Price Paid ↕</th>
+                                <th>MSRP</th>
+                                <th>Savings</th>
+                                <th>Prov.</th>
+                                <th data-sort="date" class="sortable">Date ↕</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body">
+                            <tr>
+                                <td colspan="10" class="table-empty">Loading submissions...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <footer class="page-footer">
+            <p>© 2026 Daniel Anania — Data is crowdsourced and unverified.</p>
+        </footer>
+    </div>
+
+    <script type="module" src="whatpeoplepaid.js"></script>
+</body>
+</html>
