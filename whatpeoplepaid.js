@@ -7,12 +7,12 @@
 // 3. Click the gear icon → Project Settings
 // 4. Scroll to "Your apps" → Web app config
 const FIREBASE_CONFIG = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "ferrousy-website.firebaseapp.com",
-    projectId: "ferrousy-website",
-    storageBucket: "ferrousy-website.firebasestorage.app",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyAcqf0_kjKegy2KP1M1UnVJ9KP8uxtoXTQ",
+    authDomain: "whatpeoplepaid.firebaseapp.com",
+    projectId: "whatpeoplepaid",
+    storageBucket: "whatpeoplepaid.firebasestorage.app",
+    messagingSenderId: "403309292239",
+    appId: "1:403309292239:web:b26b21f2c9c7c85698a5ba"
 };
 // =============================================
 
