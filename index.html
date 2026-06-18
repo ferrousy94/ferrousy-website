@@ -3,193 +3,260 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Dashboard</title>
-    <meta name="description" content="Personal convenience dashboard for transit, weather, and sports.">
+    <title>Daniel Anania — Data Engineer & Software Developer</title>
+    <meta name="description" content="Personal website of Daniel Anania, a data engineer with experience in cloud infrastructure, machine learning, and full-stack development.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="dashboard-wrapper">
-        <header class="dashboard-header">
-            <h1 class="logo">My Dashboard</h1>
-            <div class="header-datetime">
-                <span id="current-date">Wed, Jun 17</span>
-                <span id="current-time">9:38 PM</span>
+    <!-- Animated background gradient -->
+    <div class="bg-gradient"></div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">DA</a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#experience">Experience</a>
+                <a href="#education">Education</a>
             </div>
-        </header>
+        </div>
+    </nav>
 
-        <main class="dashboard-grid">
-            <!-- GO Transit Widget -->
-            <section class="widget transit-widget" id="go-transit-widget">
-                <header class="widget-header">
-                    <h2>🚆 GO Transit</h2>
-                    <span class="status-badge status-good">Good Service</span>
-                </header>
-                <div class="widget-body">
-                    <div class="trip-planner">
-                        <div class="input-group">
-                            <label for="station-from">From</label>
-                            <select id="station-from">
-                                <option>Union Station</option>
-                                <option>Exhibition</option>
-                                <option>Port Credit</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <label for="station-to">To</label>
-                            <select id="station-to">
-                                <option>Oakville</option>
-                                <option>Aldershot</option>
-                                <option>Hamilton</option>
-                            </select>
-                        </div>
+    <!-- Hero -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <div class="hero-badge">Data Engineer & Software Developer</div>
+            <h1 class="hero-name">Daniel Anania</h1>
+            <p class="hero-subtitle">Building data infrastructure, pipelines, and intelligent systems across cloud platforms.</p>
+            <div class="hero-tech">
+                <span>Python</span>
+                <span>SQL</span>
+                <span>GCP</span>
+                <span>AWS</span>
+                <span>Docker</span>
+                <span>BigQuery</span>
+            </div>
+            <a href="#experience" class="hero-cta">View My Work ↓</a>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section-label">About</div>
+            <div class="about-grid">
+                <div class="about-text">
+                    <h2>Turning raw data into<br><span class="text-gradient">actionable insights.</span></h2>
+                    <p>I'm a data engineer with a background in mathematics and statistics from the University of Waterloo. I specialize in designing and building data pipelines, cloud infrastructure, and automation tools that help teams make better decisions, faster.</p>
+                    <p>From machine learning models at American Express to containerized data workflows at People Inc, I bring a full-stack mindset to every data challenge.</p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">6+</div>
+                        <div class="stat-label">Years of Experience</div>
                     </div>
-                    <div class="departures-list">
-                        <div class="departure-item">
-                            <div class="departure-line line-lakeshore-west">LW</div>
-                            <div class="departure-info">
-                                <strong>Aldershot GO</strong>
-                                <span>Track 5</span>
+                    <div class="stat-card">
+                        <div class="stat-number">6</div>
+                        <div class="stat-label">Companies</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Cloud Platforms</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section class="section section-alt" id="experience">
+        <div class="container">
+            <div class="section-label">Experience</div>
+            <h2 class="section-title">Where I've Worked</h2>
+
+            <div class="timeline">
+                <div class="timeline-item" data-year="2020 – Present">
+                    <div class="timeline-card">
+                        <div class="card-header">
+                            <div>
+                                <h3>People Inc</h3>
+                                <span class="card-role">Software Engineering — Data Engineer</span>
                             </div>
-                            <div class="departure-time">9:45 PM</div>
+                            <span class="card-location">New York, NY</span>
                         </div>
-                        <div class="departure-item">
-                            <div class="departure-line line-lakeshore-west">LW</div>
-                            <div class="departure-info">
-                                <strong>West Harbour GO</strong>
-                                <span>Track 6</span>
-                            </div>
-                            <div class="departure-time">10:15 PM</div>
+                        <ul class="card-details">
+                            <li>Building data integrations through GCP and BigQuery for Looker dashboards</li>
+                            <li>Automating data permissions via Workday and Slack APIs</li>
+                            <li>Designing data infrastructure within EC2 and MongoDB</li>
+                            <li>Containerizing Jenkins jobs with Docker for production scripts</li>
+                        </ul>
+                        <div class="card-tags">
+                            <span>GCP</span><span>BigQuery</span><span>Docker</span><span>MongoDB</span><span>Jenkins</span>
                         </div>
                     </div>
                 </div>
-            </section>
 
-            <!-- Weather Widget -->
-            <section class="widget weather-widget" id="weather-widget">
-                <header class="widget-header">
-                    <h2>⛅ Weather</h2>
-                    <span class="location">Toronto, ON</span>
-                </header>
-                <div class="widget-body">
-                    <div class="current-weather">
-                        <div class="weather-icon">🌤️</div>
-                        <div class="weather-temp">
-                            <span class="temp">22°</span>
-                            <span class="condition">Partly Cloudy</span>
+                <div class="timeline-item" data-year="2019 – 2020">
+                    <div class="timeline-card">
+                        <div class="card-header">
+                            <div>
+                                <h3>Precima, A Nielsen Company</h3>
+                                <span class="card-role">Software Engineering — Data Engineer</span>
+                            </div>
+                            <span class="card-location">Toronto, ON</span>
                         </div>
-                    </div>
-                    <div class="weather-details">
-                        <div class="detail-item">
-                            <span>Feels Like</span>
-                            <strong>24°</strong>
-                        </div>
-                        <div class="detail-item">
-                            <span>Precipitation</span>
-                            <strong>10%</strong>
-                        </div>
-                        <div class="detail-item">
-                            <span>Wind</span>
-                            <strong>15 km/h</strong>
-                        </div>
-                    </div>
-                    <div class="forecast">
-                        <div class="forecast-day">
-                            <span>Thu</span>
-                            <span>🌧️</span>
-                            <span>20° / 14°</span>
-                        </div>
-                        <div class="forecast-day">
-                            <span>Fri</span>
-                            <span>☀️</span>
-                            <span>25° / 16°</span>
-                        </div>
-                        <div class="forecast-day">
-                            <span>Sat</span>
-                            <span>⛅</span>
-                            <span>23° / 15°</span>
+                        <ul class="card-details">
+                            <li>Developed pipeline tools for data validation, processing, and storage</li>
+                            <li>Standardized Docker architecture for Java (Maven) builds</li>
+                            <li>Led data migration from AWS S3/Redshift to Snowflake and Azure</li>
+                        </ul>
+                        <div class="card-tags">
+                            <span>AWS</span><span>Snowflake</span><span>Azure</span><span>Docker</span><span>Java</span>
                         </div>
                     </div>
                 </div>
-            </section>
 
-            <!-- Sports Scores Widget -->
-            <section class="widget sports-widget" id="sports-scores-widget">
-                <header class="widget-header">
-                    <h2>⚾ Sports</h2>
-                    <span class="league-badge">MLB</span>
-                </header>
-                <div class="widget-body">
-                    <div class="game-card game-live">
-                        <div class="game-status">
-                            <span class="live-dot"></span> Top 7th
-                        </div>
-                        <div class="team-row">
-                            <div class="team-info">
-                                <span class="team-logo">🐦</span>
-                                <span>Blue Jays</span>
+                <div class="timeline-item" data-year="2018">
+                    <div class="timeline-card">
+                        <div class="card-header">
+                            <div>
+                                <h3>American Express</h3>
+                                <span class="card-role">Software Engineering — SalesForce</span>
                             </div>
-                            <strong class="score">4</strong>
+                            <span class="card-location">Toronto, ON</span>
                         </div>
-                        <div class="team-row">
-                            <div class="team-info">
-                                <span class="team-logo">🧦</span>
-                                <span>Red Sox</span>
-                            </div>
-                            <strong class="score">2</strong>
-                        </div>
-                    </div>
-                    
-                    <div class="game-card">
-                        <div class="game-status">Final</div>
-                        <div class="team-row">
-                            <div class="team-info">
-                                <span class="team-logo">🍁</span>
-                                <span>Maple Leafs</span>
-                            </div>
-                            <strong class="score">3</strong>
-                        </div>
-                        <div class="team-row winner">
-                            <div class="team-info">
-                                <span class="team-logo">🐻</span>
-                                <span>Bruins</span>
-                            </div>
-                            <strong class="score">4</strong>
+                        <ul class="card-details">
+                            <li>Developed ML models for lead generation prediction in SalesForce</li>
+                            <li>Collaborated on secure Docker image production via Dockerfiles and Jenkins</li>
+                        </ul>
+                        <div class="card-tags">
+                            <span>Machine Learning</span><span>SalesForce</span><span>Docker</span><span>Jenkins</span>
                         </div>
                     </div>
                 </div>
-            </section>
 
-            <!-- News Widget -->
-            <section class="widget news-widget" id="news-widget">
-                <header class="widget-header">
-                    <h2>📰 Top News</h2>
-                    <span class="location">Global</span>
-                </header>
-                <div class="widget-body">
-                    <ul class="news-list">
-                        <li class="news-item">
-                            <span class="news-time">10 mins ago</span>
-                            <a href="#" class="news-title">Global Markets Reach New Highs Amid Tech Rally</a>
-                        </li>
-                        <li class="news-item">
-                            <span class="news-time">1 hour ago</span>
-                            <a href="#" class="news-title">Breakthrough in Renewable Energy Announced Today</a>
-                        </li>
-                        <li class="news-item">
-                            <span class="news-time">3 hours ago</span>
-                            <a href="#" class="news-title">Major Updates to City Public Transit Routes Coming Next Month</a>
-                        </li>
-                    </ul>
+                <div class="timeline-item" data-year="2018">
+                    <div class="timeline-card">
+                        <div class="card-header">
+                            <div>
+                                <h3>LoyaltyOne</h3>
+                                <span class="card-role">Data & Technology — Consulting and Analytics</span>
+                            </div>
+                            <span class="card-location">Toronto, ON</span>
+                        </div>
+                        <ul class="card-details">
+                            <li>Developed and maintained database, ETL, and BI solutions</li>
+                            <li>Delivered consultative data modeling improvements to clients</li>
+                        </ul>
+                        <div class="card-tags">
+                            <span>ETL</span><span>BI</span><span>SQL</span><span>Consulting</span>
+                        </div>
+                    </div>
                 </div>
-            </section>
-        </main>
 
-        <footer class="dashboard-footer">
-            <p>&copy; 2026 Personal Dashboard</p>
-        </footer>
-    </div>
+                <div class="timeline-item" data-year="2017">
+                    <div class="timeline-card">
+                        <div class="card-header">
+                            <div>
+                                <h3>Ontario Teachers' Pension Plan</h3>
+                                <span class="card-role">Programmer Analyst, Investment Architecture</span>
+                            </div>
+                            <span class="card-location">Toronto, ON</span>
+                        </div>
+                        <ul class="card-details">
+                            <li>Built ML/optimization program for Azure Batch using scikit-learn and SciPy</li>
+                            <li>Created Flask app to gather and visualize Azure Batch metrics</li>
+                        </ul>
+                        <div class="card-tags">
+                            <span>Python</span><span>Azure</span><span>scikit-learn</span><span>Flask</span><span>TensorFlow</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-year="2016">
+                    <div class="timeline-card">
+                        <div class="card-header">
+                            <div>
+                                <h3>Maple Leaf Foods</h3>
+                                <span class="card-role">Full-Stack Web Developer</span>
+                            </div>
+                            <span class="card-location">Mississauga, ON</span>
+                        </div>
+                        <ul class="card-details">
+                            <li>Developed web application for office navigation</li>
+                            <li>Redesigned SharePoint dashboards with the Business Analytics team</li>
+                        </ul>
+                        <div class="card-tags">
+                            <span>JavaScript</span><span>SharePoint</span><span>Full-Stack</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education -->
+    <section class="section" id="education">
+        <div class="container">
+            <div class="section-label">Education</div>
+            <h2 class="section-title">Background</h2>
+            <div class="edu-card">
+                <div class="edu-icon">🎓</div>
+                <div class="edu-content">
+                    <h3>University of Waterloo</h3>
+                    <p class="edu-degree">Bachelor of Mathematics</p>
+                    <p class="edu-major">Statistics & Computational Mathematics</p>
+                    <p class="edu-year">2014 — 2019</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">© 2026 Daniel Anania</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Nav background on scroll
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('nav-scrolled');
+            } else {
+                nav.classList.remove('nav-scrolled');
+            }
+        });
+
+        // Animate elements on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.timeline-item, .stat-card, .edu-card, .about-text').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
