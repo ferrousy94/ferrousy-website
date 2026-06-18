@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Dashboard</title>
+    <meta name="description" content="Personal convenience dashboard for transit, weather, and sports.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="utilities.css">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <header class="dashboard-header">
+            <div>
+                <a href="index.html" class="back-link">&larr; Back to Portfolio</a>
+                <h1 class="logo" style="margin-top: 0.5rem;">Utilities Dashboard</h1>
+            </div>
+            <div class="header-datetime">
+                <span id="current-date">Wed, Jun 17</span>
+                <span id="current-time">9:38 PM</span>
+            </div>
+        </header>
+
+        <main class="dashboard-grid">
+            <!-- GO Transit Widget -->
+            <section class="widget transit-widget" id="go-transit-widget">
+                <header class="widget-header">
+                    <h2>🚆 GO Transit</h2>
+                    <span class="status-badge status-good">Good Service</span>
+                </header>
+                <div class="widget-body">
+                    <div class="trip-planner">
+                        <div class="input-group">
+                            <label for="station-from">From</label>
+                            <select id="station-from">
+                                <option>Union Station</option>
+                                <option>Exhibition</option>
+                                <option>Port Credit</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="station-to">To</label>
+                            <select id="station-to">
+                                <option>Oakville</option>
+                                <option>Aldershot</option>
+                                <option>Hamilton</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="departures-list">
+                        <div class="departure-item">
+                            <div class="departure-line line-lakeshore-west">LW</div>
+                            <div class="departure-info">
+                                <strong>Aldershot GO</strong>
+                                <span>Track 5</span>
+                            </div>
+                            <div class="departure-time">9:45 PM</div>
+                        </div>
+                        <div class="departure-item">
+                            <div class="departure-line line-lakeshore-west">LW</div>
+                            <div class="departure-info">
+                                <strong>West Harbour GO</strong>
+                                <span>Track 6</span>
+                            </div>
+                            <div class="departure-time">10:15 PM</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Weather Widget -->
+            <section class="widget weather-widget" id="weather-widget">
+                <header class="widget-header">
+                    <h2>⛅ Weather</h2>
+                    <span class="location">Toronto, ON</span>
+                </header>
+                <div class="widget-body">
+                    <div class="current-weather">
+                        <div class="weather-icon">🌤️</div>
+                        <div class="weather-temp">
+                            <span class="temp">22°</span>
+                            <span class="condition">Partly Cloudy</span>
+                        </div>
+                    </div>
+                    <div class="weather-details">
+                        <div class="detail-item">
+                            <span>Feels Like</span>
+                            <strong>24°</strong>
+                        </div>
+                        <div class="detail-item">
+                            <span>Precipitation</span>
+                            <strong>10%</strong>
+                        </div>
+                        <div class="detail-item">
+                            <span>Wind</span>
+                            <strong>15 km/h</strong>
+                        </div>
+                    </div>
+                    <div class="forecast">
+                        <div class="forecast-day">
+                            <span>Thu</span>
+                            <span>🌧️</span>
+                            <span>20° / 14°</span>
+                        </div>
+                        <div class="forecast-day">
+                            <span>Fri</span>
+                            <span>☀️</span>
+                            <span>25° / 16°</span>
+                        </div>
+                        <div class="forecast-day">
+                            <span>Sat</span>
+                            <span>⛅</span>
+                            <span>23° / 15°</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sports Scores Widget -->
+            <section class="widget sports-widget" id="sports-scores-widget">
+                <header class="widget-header">
+                    <h2>⚾ Sports</h2>
+                    <span class="league-badge">MLB</span>
+                </header>
+                <div class="widget-body">
+                    <div class="game-card game-live">
+                        <div class="game-status">
+                            <span class="live-dot"></span> Top 7th
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <span class="team-logo">🐦</span>
+                                <span>Blue Jays</span>
+                            </div>
+                            <strong class="score">4</strong>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <span class="team-logo">🧦</span>
+                                <span>Red Sox</span>
+                            </div>
+                            <strong class="score">2</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="game-card">
+                        <div class="game-status">Final</div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <span class="team-logo">🍁</span>
+                                <span>Maple Leafs</span>
+                            </div>
+                            <strong class="score">3</strong>
+                        </div>
+                        <div class="team-row winner">
+                            <div class="team-info">
+                                <span class="team-logo">🐻</span>
+                                <span>Bruins</span>
+                            </div>
+                            <strong class="score">4</strong>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- News Widget -->
+            <section class="widget news-widget" id="news-widget">
+                <header class="widget-header">
+                    <h2>📰 Top News</h2>
+                    <span class="location">Global</span>
+                </header>
+                <div class="widget-body">
+                    <ul class="news-list">
+                        <li class="news-item">
+                            <span class="news-time">10 mins ago</span>
+                            <a href="#" class="news-title">Global Markets Reach New Highs Amid Tech Rally</a>
+                        </li>
+                        <li class="news-item">
+                            <span class="news-time">1 hour ago</span>
+                            <a href="#" class="news-title">Breakthrough in Renewable Energy Announced Today</a>
+                        </li>
+                        <li class="news-item">
+                            <span class="news-time">3 hours ago</span>
+                            <a href="#" class="news-title">Major Updates to City Public Transit Routes Coming Next Month</a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <footer class="dashboard-footer">
+            <p>&copy; 2026 Personal Dashboard</p>
+        </footer>
+    </div>
+</body>
+</html>

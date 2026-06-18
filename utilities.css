@@ -1,0 +1,460 @@
+:root {
+    --bg-color: #f0f2f5;
+    --card-bg: #ffffff;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --primary-color: #0ea5e9;
+    --go-green: #007a4d;
+    --border-color: #e2e8f0;
+    --radius-lg: 16px;
+    --radius-md: 12px;
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
+    --shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.08);
+    --font-family: 'Outfit', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-family);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.back-link {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.back-link:hover {
+    text-decoration: underline;
+}
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--text-primary);
+}
+
+.header-datetime {
+    text-align: right;
+    font-weight: 500;
+}
+
+#current-date {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+#current-time {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    flex: 1;
+}
+
+/* Base Widget Styles */
+.widget {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+
+.widget:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+}
+
+.widget-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.widget-header h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.widget-body {
+    padding: 1.5rem;
+    flex: 1;
+}
+
+/* Status Badges */
+.status-badge, .league-badge, .location {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    background: var(--bg-color);
+    color: var(--text-secondary);
+}
+
+.status-good {
+    background: #dcfce7;
+    color: #166534;
+}
+
+/* GO Transit Widget */
+.transit-widget .widget-header {
+    background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+    border-top: 4px solid var(--go-green);
+}
+
+.trip-planner {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.input-group {
+    flex: 1;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.input-group select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: 0.95rem;
+    background: #f8fafc;
+}
+
+.departures-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.departure-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    background: #f8fafc;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+}
+
+.departure-line {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: white;
+    margin-right: 1rem;
+}
+
+.line-lakeshore-west {
+    background-color: #98002E; /* GO Lakeshore West Color */
+}
+
+.departure-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.departure-info strong {
+    font-size: 1rem;
+}
+
+.departure-info span {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.departure-time {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+/* Weather Widget */
+.weather-widget .widget-header {
+    background: linear-gradient(135deg, #e0f2fe 0%, #ffffff 100%);
+    border-top: 4px solid #38bdf8;
+}
+
+.current-weather {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.weather-icon {
+    font-size: 4rem;
+    line-height: 1;
+}
+
+.weather-temp {
+    display: flex;
+    flex-direction: column;
+}
+
+.weather-temp .temp {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+.weather-temp .condition {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.weather-details {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: var(--radius-md);
+    margin-bottom: 2rem;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.detail-item span {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.detail-item strong {
+    font-size: 1.1rem;
+}
+
+.forecast {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+}
+
+.forecast-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.forecast-day span:first-child {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.forecast-day span:nth-child(2) {
+    font-size: 1.5rem;
+}
+
+.forecast-day span:last-child {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+/* Sports Widget */
+.sports-widget .widget-header {
+    background: linear-gradient(135deg, #ffedd5 0%, #ffffff 100%);
+    border-top: 4px solid #f97316;
+}
+
+.game-card {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: #f8fafc;
+}
+
+.game-card:last-child {
+    margin-bottom: 0;
+}
+
+.game-status {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+}
+
+.live-dot {
+    width: 8px;
+    height: 8px;
+    background: #ef4444;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 0.5rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.4; }
+    100% { opacity: 1; }
+}
+
+.team-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.25rem 0;
+}
+
+.team-row.winner strong {
+    color: var(--text-primary);
+}
+
+.team-row strong {
+    color: var(--text-secondary);
+}
+
+.team-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+}
+
+.team-logo {
+    font-size: 1.25rem;
+}
+
+.score {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+/* News Widget */
+.news-widget .widget-header {
+    background: linear-gradient(135deg, #f3e8ff 0%, #ffffff 100%);
+    border-top: 4px solid #a855f7;
+}
+
+.news-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.news-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1.25rem;
+}
+
+.news-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.news-time {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    text-transform: uppercase;
+}
+
+.news-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.4;
+}
+
+.news-title:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+/* Footer */
+.dashboard-footer {
+    text-align: center;
+    padding: 2rem 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .dashboard-wrapper {
+        padding: 1rem;
+    }
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    .header-datetime {
+        text-align: left;
+    }
+}
