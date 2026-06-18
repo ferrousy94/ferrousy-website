@@ -451,6 +451,179 @@ body {
 }
 
 /* ===========================
+   Auth Modal & Styles
+   =========================== */
+.btn-login, .btn-logout {
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    transition: all 0.2s;
+}
+
+.btn-login {
+    background: transparent;
+    border: 1px solid var(--accent-1);
+    color: var(--accent-1);
+}
+.btn-login:hover {
+    background: rgba(108, 99, 255, 0.1);
+}
+
+.btn-logout {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+.btn-logout:hover {
+    border-color: var(--accent-red);
+    color: var(--accent-red);
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    box-shadow: var(--shadow-soft);
+    animation: scaleUp 0.2s ease;
+}
+
+@keyframes scaleUp {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+}
+.modal-close:hover { color: var(--text-primary); }
+
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.modal-desc {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.btn-google {
+    width: 100%;
+    padding: 0.75rem;
+    background: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    color: #333;
+    font-weight: 600;
+    font-size: 0.95rem;
+    font-family: var(--font-sans);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-bottom: 1.5rem;
+}
+.btn-google:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.modal-divider {
+    text-align: center;
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+.modal-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 0; right: 0;
+    border-top: 1px solid var(--border-color);
+    z-index: 1;
+}
+.modal-divider span {
+    background: var(--bg-card);
+    padding: 0 0.75rem;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    position: relative;
+    z-index: 2;
+}
+
+.email-auth-form .form-group {
+    margin-bottom: 1rem;
+}
+
+.email-auth-form input {
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+}
+.email-auth-form input:focus {
+    outline: none;
+    border-color: var(--accent-1);
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+.auth-buttons button {
+    flex: 1;
+}
+
+.btn-delete {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 0.2rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+.btn-delete:hover {
+    color: var(--accent-red);
+    background: rgba(239, 68, 68, 0.1);
+}
+
+/* ===========================
    Responsive
    =========================== */
 @media (max-width: 768px) {

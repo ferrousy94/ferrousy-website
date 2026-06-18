@@ -1,11 +1,6 @@
 // =============================================
 // 🔧 FIREBASE CONFIG — Replace with your values
 // =============================================
-// To get these values:
-// 1. Go to https://console.firebase.google.com
-// 2. Select your project (ferrousy-website)
-// 3. Click the gear icon → Project Settings
-// 4. Scroll to "Your apps" → Web app config
 const FIREBASE_CONFIG = {
     apiKey: "AIzaSyAcqf0_kjKegy2KP1M1UnVJ9KP8uxtoXTQ",
     authDomain: "whatpeoplepaid.firebaseapp.com",
@@ -22,16 +17,32 @@ import {
     getFirestore,
     collection,
     addDoc,
+    deleteDoc,
+    doc,
     query,
     orderBy,
     limit,
     onSnapshot,
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+import {
+    getAuth,
+    signInWithPopup,
+    GoogleAuthProvider,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+
+import { carData } from "./cars.js";
 
 // Initialize Firebase
 const app = initializeApp(FIREBASE_CONFIG);
 const db = getFirestore(app);
+const auth = getAuth(app);
+
+const ADMIN_EMAIL = "a5daniel@uwaterloo.ca";
 
 // =============================================
 // State
@@ -39,6 +50,7 @@ const db = getFirestore(app);
 let allSubmissions = [];
 let currentSort = { field: 'submittedAt', direction: 'desc' };
 let filters = { make: '', condition: '', province: '' };
+let currentUser = null;
 
 // =============================================
 // DOM Elements
@@ -48,23 +60,89 @@ const submitForm = document.getElementById('submit-form');
 const btnCancel = document.getElementById('btn-cancel');
 const btnSubmit = document.getElementById('btn-submit');
 const formMessage = document.getElementById('form-message');
+
 const inputMake = document.getElementById('input-make');
 const customMakeGroup = document.getElementById('custom-make-group');
 const inputCustomMake = document.getElementById('input-custom-make');
+const inputModel = document.getElementById('input-model');
+const customModelGroup = document.getElementById('custom-model-group');
+const inputCustomModel = document.getElementById('input-custom-model');
+
 const inputYear = document.getElementById('input-year');
 const tableBody = document.getElementById('table-body');
 const filterMake = document.getElementById('filter-make');
 const filterCondition = document.getElementById('filter-condition');
 const filterProvince = document.getElementById('filter-province');
 
+// Auth DOM
+const btnShowLogin = document.getElementById('btn-show-login');
+const btnLogout = document.getElementById('btn-logout');
+const userProfile = document.getElementById('user-profile');
+const userEmail = document.getElementById('user-email');
+const authModal = document.getElementById('auth-modal');
+const btnCloseModal = document.getElementById('btn-close-modal');
+const btnGoogleLogin = document.getElementById('btn-google-login');
+const emailAuthForm = document.getElementById('email-auth-form');
+const authEmailInput = document.getElementById('auth-email');
+const authPasswordInput = document.getElementById('auth-password');
+const btnEmailLogin = document.getElementById('btn-email-login');
+const btnEmailRegister = document.getElementById('btn-email-register');
+const authError = document.getElementById('auth-error');
+const submitAuthWarning = document.getElementById('submit-auth-warning');
+const linkShowLogin = document.getElementById('link-show-login');
+
 // =============================================
 // Initialize
 // =============================================
 function init() {
+    populateMakes();
     populateYears();
     setDefaultDate();
     setupEventListeners();
+    setupAuthListeners();
     listenToSubmissions();
+}
+
+function populateMakes() {
+    const makes = Object.keys(carData).sort();
+    makes.forEach(make => {
+        const opt = document.createElement('option');
+        opt.value = make;
+        opt.textContent = make;
+        inputMake.appendChild(opt);
+    });
+    const otherOpt = document.createElement('option');
+    otherOpt.value = "__other__";
+    otherOpt.textContent = "Other (type below)";
+    inputMake.appendChild(otherOpt);
+}
+
+function updateModels() {
+    const make = inputMake.value;
+    inputModel.innerHTML = '<option value="">Select Model</option>';
+    
+    if (!make || make === '__other__') {
+        inputModel.disabled = true;
+        customModelGroup.style.display = 'block';
+        inputCustomModel.required = true;
+    } else {
+        inputModel.disabled = false;
+        const models = carData[make] || [];
+        models.forEach(model => {
+            const opt = document.createElement('option');
+            opt.value = model;
+            opt.textContent = model;
+            inputModel.appendChild(opt);
+        });
+        const otherOpt = document.createElement('option');
+        otherOpt.value = "__other__";
+        otherOpt.textContent = "Other (type below)";
+        inputModel.appendChild(otherOpt);
+        
+        customModelGroup.style.display = 'none';
+        inputCustomModel.required = false;
+        inputCustomModel.value = '';
+    }
 }
 
 function populateYears() {
@@ -83,7 +161,68 @@ function setDefaultDate() {
     document.getElementById('input-date').value = `${now.getFullYear()}-${month}`;
 }
 
+function setupAuthListeners() {
+    onAuthStateChanged(auth, (user) => {
+        currentUser = user;
+        if (user) {
+            btnShowLogin.style.display = 'none';
+            userProfile.style.display = 'block';
+            userEmail.textContent = user.email;
+            
+            submitAuthWarning.style.display = 'none';
+            submitToggle.style.display = 'block';
+            authModal.style.display = 'none';
+        } else {
+            btnShowLogin.style.display = 'block';
+            userProfile.style.display = 'none';
+            
+            submitAuthWarning.style.display = 'block';
+            submitToggle.style.display = 'none';
+            submitForm.style.display = 'none';
+        }
+        renderTable(); // Re-render for admin delete buttons
+    });
+}
+
 function setupEventListeners() {
+    // Auth Modal
+    const showModal = (e) => { e.preventDefault(); authModal.style.display = 'flex'; authError.textContent = ''; };
+    btnShowLogin.addEventListener('click', showModal);
+    linkShowLogin.addEventListener('click', showModal);
+    btnCloseModal.addEventListener('click', () => authModal.style.display = 'none');
+    
+    // Auth Actions
+    btnLogout.addEventListener('click', () => signOut(auth));
+    
+    btnGoogleLogin.addEventListener('click', async () => {
+        try {
+            const provider = new GoogleAuthProvider();
+            await signInWithPopup(auth, provider);
+        } catch (error) {
+            authError.textContent = error.message;
+        }
+    });
+
+    btnEmailLogin.addEventListener('click', async (e) => {
+        e.preventDefault();
+        if(!emailAuthForm.checkValidity()) { emailAuthForm.reportValidity(); return; }
+        try {
+            await signInWithEmailAndPassword(auth, authEmailInput.value, authPasswordInput.value);
+        } catch (error) {
+            authError.textContent = error.message;
+        }
+    });
+
+    btnEmailRegister.addEventListener('click', async (e) => {
+        e.preventDefault();
+        if(!emailAuthForm.checkValidity()) { emailAuthForm.reportValidity(); return; }
+        try {
+            await createUserWithEmailAndPassword(auth, authEmailInput.value, authPasswordInput.value);
+        } catch (error) {
+            authError.textContent = error.message;
+        }
+    });
+
     // Toggle form
     submitToggle.addEventListener('click', () => {
         submitForm.style.display = submitForm.style.display === 'none' ? 'block' : 'none';
@@ -96,7 +235,7 @@ function setupEventListeners() {
         formMessage.textContent = '';
     });
 
-    // Custom make toggle
+    // Make & Model dropdowns
     inputMake.addEventListener('change', () => {
         if (inputMake.value === '__other__') {
             customMakeGroup.style.display = 'block';
@@ -105,6 +244,18 @@ function setupEventListeners() {
             customMakeGroup.style.display = 'none';
             inputCustomMake.required = false;
             inputCustomMake.value = '';
+        }
+        updateModels();
+    });
+
+    inputModel.addEventListener('change', () => {
+        if (inputModel.value === '__other__') {
+            customModelGroup.style.display = 'block';
+            inputCustomModel.required = true;
+        } else {
+            customModelGroup.style.display = 'none';
+            inputCustomModel.required = false;
+            inputCustomModel.value = '';
         }
     });
 
@@ -153,7 +304,7 @@ function listenToSubmissions() {
         renderTable();
     }, (error) => {
         console.error('Firestore listen error:', error);
-        tableBody.innerHTML = `<tr><td colspan="10" class="table-empty">
+        tableBody.innerHTML = `<tr><td colspan="11" class="table-empty">
             Unable to load data. Please check Firebase configuration.
         </td></tr>`;
     });
@@ -164,14 +315,17 @@ function listenToSubmissions() {
 // =============================================
 async function handleSubmit(e) {
     e.preventDefault();
+    if (!currentUser) return;
+
     btnSubmit.disabled = true;
     btnSubmit.textContent = 'Submitting...';
     formMessage.textContent = '';
 
     const make = inputMake.value === '__other__' ? inputCustomMake.value.trim() : inputMake.value;
+    const model = (inputMake.value === '__other__' || inputModel.value === '__other__') ? inputCustomModel.value.trim() : inputModel.value;
 
-    if (!make) {
-        formMessage.textContent = 'Please enter a car make.';
+    if (!make || !model) {
+        formMessage.textContent = 'Please enter a car make and model.';
         formMessage.className = 'form-message error';
         btnSubmit.disabled = false;
         btnSubmit.textContent = 'Submit';
@@ -181,8 +335,8 @@ async function handleSubmit(e) {
     const data = {
         category: 'car',
         make: make,
-        model: document.getElementById('input-model').value.trim(),
-        year: parseInt(document.getElementById('input-year').value),
+        model: model,
+        year: parseInt(inputYear.value),
         trim: document.getElementById('input-trim').value.trim() || null,
         condition: document.getElementById('input-condition').value,
         pricePaid: parseFloat(document.getElementById('input-price').value),
@@ -192,6 +346,8 @@ async function handleSubmit(e) {
         province: document.getElementById('input-province').value,
         date: document.getElementById('input-date').value,
         submittedAt: serverTimestamp()
+        // Note: We deliberately do NOT store currentUser.uid or email to maintain true anonymity.
+        // Even if the DB is compromised, submissions cannot be traced back to the user account.
     };
 
     try {
@@ -201,7 +357,10 @@ async function handleSubmit(e) {
         submitForm.reset();
         setDefaultDate();
         customMakeGroup.style.display = 'none';
-        // Auto-hide form after success
+        customModelGroup.style.display = 'none';
+        inputModel.innerHTML = '<option value="">Select Make First</option>';
+        inputModel.disabled = true;
+
         setTimeout(() => {
             submitForm.style.display = 'none';
             submitToggle.style.display = 'block';
@@ -209,13 +368,26 @@ async function handleSubmit(e) {
         }, 2000);
     } catch (err) {
         console.error('Submit error:', err);
-        formMessage.textContent = 'Error submitting. Please try again.';
+        formMessage.textContent = 'Error submitting. Ensure you are logged in and have permission.';
         formMessage.className = 'form-message error';
     }
 
     btnSubmit.disabled = false;
     btnSubmit.textContent = 'Submit';
 }
+
+// =============================================
+// Admin Delete
+// =============================================
+window.deleteRecord = async function(id) {
+    if (!confirm("Are you sure you want to delete this record?")) return;
+    try {
+        await deleteDoc(doc(db, 'prices', id));
+    } catch (error) {
+        console.error("Error deleting document: ", error);
+        alert("Failed to delete. Check your permissions.");
+    }
+};
 
 // =============================================
 // Update Stats
@@ -311,9 +483,23 @@ function sortData(data) {
 function renderTable() {
     const filtered = getFilteredData();
     const sorted = sortData(filtered);
+    const isAdmin = currentUser && currentUser.email === ADMIN_EMAIL;
+
+    // Check if the admin th exists, if not, create it
+    let thead = document.querySelector('.data-table thead tr');
+    let hasAdminTh = thead.querySelector('.admin-col');
+    if (isAdmin && !hasAdminTh) {
+        let th = document.createElement('th');
+        th.className = 'admin-col';
+        th.style.width = '40px';
+        thead.appendChild(th);
+    } else if (!isAdmin && hasAdminTh) {
+        hasAdminTh.remove();
+    }
 
     if (sorted.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="10" class="table-empty">
+        const colSpan = isAdmin ? 11 : 10;
+        tableBody.innerHTML = `<tr><td colspan="${colSpan}" class="table-empty">
             No submissions yet. Be the first to share what you paid!
         </td></tr>`;
         return;
@@ -338,8 +524,8 @@ function renderTable() {
 
         const condClass = s.condition === 'new' ? 'condition-new' : 'condition-used';
         const condLabel = s.condition === 'new' ? 'New' : 'Used';
-
-        return `<tr>
+        
+        let row = `<tr>
             <td><strong>${escapeHtml(s.make || '')}</strong></td>
             <td>${escapeHtml(s.model || '')}</td>
             <td>${s.year || '—'}</td>
@@ -349,8 +535,14 @@ function renderTable() {
             <td class="price-cell" style="color: var(--text-muted);">${msrp}</td>
             <td>${savings}</td>
             <td>${s.province || '—'}</td>
-            <td style="color: var(--text-muted);">${s.date || '—'}</td>
-        </tr>`;
+            <td style="color: var(--text-muted);">${s.date || '—'}</td>`;
+            
+        if (isAdmin) {
+            row += `<td><button class="btn-delete" onclick="deleteRecord('${s.id}')" title="Delete Record">🗑️</button></td>`;
+        }
+        
+        row += `</tr>`;
+        return row;
     }).join('');
 }
 
