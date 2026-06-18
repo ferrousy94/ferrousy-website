@@ -3,155 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ferrousy Transit | Official Website</title>
-    <meta name="description" content="Plan your trip, check schedules, and get service updates for the Ferrousy transit network.">
+    <title>Personal Dashboard</title>
+    <meta name="description" content="Personal convenience dashboard for transit, weather, and sports.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <div class="utility-bar">
-            <div class="utility-container">
-                <div class="utility-left">
-                    <a href="#">EN / FR</a>
-                </div>
-                <div class="utility-right">
-                    <a href="#">Accessibility</a>
-                    <a href="#">Help</a>
-                    <a href="#">Sign In</a>
-                </div>
+    <div class="dashboard-wrapper">
+        <header class="dashboard-header">
+            <h1 class="logo">My Dashboard</h1>
+            <div class="header-datetime">
+                <span id="current-date">Wed, Jun 17</span>
+                <span id="current-time">9:38 PM</span>
             </div>
-        </div>
-        <nav class="navbar">
-            <div class="nav-container">
-                <a href="#" class="logo">Ferrousy Transit</a>
-                <div class="nav-links">
-                    <a href="#plan">Plan a Trip</a>
-                    <a href="#schedules">Schedules</a>
-                    <a href="#fares">Tickets & Fares</a>
-                    <a href="#status">Service Status</a>
-                </div>
-                <div class="nav-actions">
-                    <button class="btn btn-outline">Search</button>
-                </div>
-            </div>
-        </nav>
-        <div class="alert-banner">
-            <div class="alert-container">
-                <span class="alert-icon">⚠️</span>
-                <span class="alert-text"><strong>Service Update:</strong> Minor delays on the Lakeshore line due to track maintenance. <a href="#">Learn more</a></span>
-            </div>
-        </div>
-    </header>
+        </header>
 
-    <main>
-        <section class="hero">
-            <div class="hero-bg"></div>
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Your journey starts here.</h1>
-                    <p>Fast, reliable, and connected. Plan your route across the Ferrousy network.</p>
-                </div>
-                <div class="hero-widget">
-                    <div class="widget-tabs">
-                        <button class="tab active">Plan a Trip</button>
-                        <button class="tab">Schedules</button>
-                        <button class="tab">Departures</button>
-                    </div>
-                    <div class="widget-body">
+        <main class="dashboard-grid">
+            <!-- GO Transit Widget -->
+            <section class="widget transit-widget" id="go-transit-widget">
+                <header class="widget-header">
+                    <h2>🚆 GO Transit</h2>
+                    <span class="status-badge status-good">Good Service</span>
+                </header>
+                <div class="widget-body">
+                    <div class="trip-planner">
                         <div class="input-group">
-                            <label>From</label>
-                            <input type="text" placeholder="Enter station or address">
+                            <label for="station-from">From</label>
+                            <select id="station-from">
+                                <option>Union Station</option>
+                                <option>Exhibition</option>
+                                <option>Port Credit</option>
+                            </select>
                         </div>
                         <div class="input-group">
-                            <label>To</label>
-                            <input type="text" placeholder="Enter station or address">
+                            <label for="station-to">To</label>
+                            <select id="station-to">
+                                <option>Oakville</option>
+                                <option>Aldershot</option>
+                                <option>Hamilton</option>
+                            </select>
                         </div>
-                        <button class="btn btn-primary btn-block">Find Routes</button>
+                    </div>
+                    <div class="departures-list">
+                        <div class="departure-item">
+                            <div class="departure-line line-lakeshore-west">LW</div>
+                            <div class="departure-info">
+                                <strong>Aldershot GO</strong>
+                                <span>Track 5</span>
+                            </div>
+                            <div class="departure-time">9:45 PM</div>
+                        </div>
+                        <div class="departure-item">
+                            <div class="departure-line line-lakeshore-west">LW</div>
+                            <div class="departure-info">
+                                <strong>West Harbour GO</strong>
+                                <span>Track 6</span>
+                            </div>
+                            <div class="departure-time">10:15 PM</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="services">
-            <div class="services-container">
-                <div class="section-header">
-                    <h2>Popular Services</h2>
-                </div>
-                <div class="grid">
-                    <a href="#" class="service-card">
-                        <div class="card-icon">🎟️</div>
-                        <h3>Buy E-Tickets</h3>
-                        <p>Purchase and manage your digital transit passes instantly.</p>
-                        <span class="card-link">Buy now &rarr;</span>
-                    </a>
-                    <a href="#" class="service-card">
-                        <div class="card-icon">🗺️</div>
-                        <h3>System Map</h3>
-                        <p>Explore the entire Ferrousy rail and bus network.</p>
-                        <span class="card-link">View map &rarr;</span>
-                    </a>
-                    <a href="#" class="service-card">
-                        <div class="card-icon">💼</div>
-                        <h3>Corporate Accounts</h3>
-                        <p>Manage employee transit passes and billing.</p>
-                        <span class="card-link">Learn more &rarr;</span>
-                    </a>
-                </div>
-            </div>
-        </section>
-        
-        <section class="news">
-            <div class="news-container">
-                <div class="section-header">
-                    <h2>Latest Updates</h2>
-                </div>
-                <div class="news-grid">
-                    <div class="news-card">
-                        <div class="news-date">June 15, 2026</div>
-                        <h3>Summer Weekend Passes Now Available</h3>
-                        <p>Enjoy unlimited travel across the network for a flat rate every weekend.</p>
+            <!-- Weather Widget -->
+            <section class="widget weather-widget" id="weather-widget">
+                <header class="widget-header">
+                    <h2>⛅ Weather</h2>
+                    <span class="location">Toronto, ON</span>
+                </header>
+                <div class="widget-body">
+                    <div class="current-weather">
+                        <div class="weather-icon">🌤️</div>
+                        <div class="weather-temp">
+                            <span class="temp">22°</span>
+                            <span class="condition">Partly Cloudy</span>
+                        </div>
                     </div>
-                    <div class="news-card">
-                        <div class="news-date">June 10, 2026</div>
-                        <h3>New Stations Opening on the East Line</h3>
-                        <p>Three new accessible stations are opening this fall.</p>
+                    <div class="weather-details">
+                        <div class="detail-item">
+                            <span>Feels Like</span>
+                            <strong>24°</strong>
+                        </div>
+                        <div class="detail-item">
+                            <span>Precipitation</span>
+                            <strong>10%</strong>
+                        </div>
+                        <div class="detail-item">
+                            <span>Wind</span>
+                            <strong>15 km/h</strong>
+                        </div>
+                    </div>
+                    <div class="forecast">
+                        <div class="forecast-day">
+                            <span>Thu</span>
+                            <span>🌧️</span>
+                            <span>20° / 14°</span>
+                        </div>
+                        <div class="forecast-day">
+                            <span>Fri</span>
+                            <span>☀️</span>
+                            <span>25° / 16°</span>
+                        </div>
+                        <div class="forecast-day">
+                            <span>Sat</span>
+                            <span>⛅</span>
+                            <span>23° / 15°</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
-    </main>
+            </section>
 
-    <footer>
-        <div class="footer-container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <p class="logo-footer">Ferrousy Transit</p>
-                    <p>Connecting communities with reliable, safe, and efficient transportation.</p>
+            <!-- Sports Scores Widget -->
+            <section class="widget sports-widget" id="sports-scores-widget">
+                <header class="widget-header">
+                    <h2>⚾ Sports</h2>
+                    <span class="league-badge">MLB</span>
+                </header>
+                <div class="widget-body">
+                    <div class="game-card game-live">
+                        <div class="game-status">
+                            <span class="live-dot"></span> Top 7th
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <span class="team-logo">🐦</span>
+                                <span>Blue Jays</span>
+                            </div>
+                            <strong class="score">4</strong>
+                        </div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <span class="team-logo">🧦</span>
+                                <span>Red Sox</span>
+                            </div>
+                            <strong class="score">2</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="game-card">
+                        <div class="game-status">Final</div>
+                        <div class="team-row">
+                            <div class="team-info">
+                                <span class="team-logo">🍁</span>
+                                <span>Maple Leafs</span>
+                            </div>
+                            <strong class="score">3</strong>
+                        </div>
+                        <div class="team-row winner">
+                            <div class="team-info">
+                                <span class="team-logo">🐻</span>
+                                <span>Bruins</span>
+                            </div>
+                            <strong class="score">4</strong>
+                        </div>
+                    </div>
                 </div>
-                <div class="footer-links">
-                    <h4>About Us</h4>
-                    <a href="#">Company Info</a>
-                    <a href="#">Careers</a>
-                    <a href="#">News</a>
-                </div>
-                <div class="footer-links">
-                    <h4>Customer Service</h4>
-                    <a href="#">Contact Us</a>
-                    <a href="#">Lost & Found</a>
-                    <a href="#">Accessibility</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 Ferrousy Transit. All rights reserved.</p>
-                <div class="footer-legal">
-                    <a href="#">Terms of Use</a>
-                    <a href="#">Privacy Policy</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+            </section>
+        </main>
+
+        <footer class="dashboard-footer">
+            <p>&copy; 2026 Personal Dashboard</p>
+        </footer>
+    </div>
 </body>
 </html>
