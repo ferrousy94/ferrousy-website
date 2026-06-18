@@ -42,7 +42,7 @@ const app = initializeApp(FIREBASE_CONFIG);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-const ADMIN_EMAIL = "a5daniel@uwaterloo.ca";
+const ADMIN_EMAIL = "d5anania@gmail.com";
 
 // =============================================
 // State
