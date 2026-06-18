@@ -3,88 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ferrousy | Engineering Excellence</title>
-    <meta name="description" content="Custom containerized web experiences engineered for optimal performance.">
+    <title>Ferrousy Transit | Official Website</title>
+    <meta name="description" content="Plan your trip, check schedules, and get service updates for the Ferrousy transit network.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="background-effects">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-    </div>
-
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo">Ferrousy.</a>
-            <div class="nav-links">
-                <a href="#home">Home</a>
-                <div class="dropdown">
-                    <a href="#tools" class="dropbtn">Tools <span class="caret">▼</span></a>
-                    <div class="dropdown-content glass">
-                        <a href="#go-train">🚇 GO Train Status</a>
-                        <a href="#world-cup">⚽ World Cup Scores</a>
-                    </div>
+    <header>
+        <div class="utility-bar">
+            <div class="utility-container">
+                <div class="utility-left">
+                    <a href="#">EN / FR</a>
                 </div>
-                <a href="#features">Features</a>
-                <a href="#infrastructure">Infrastructure</a>
+                <div class="utility-right">
+                    <a href="#">Accessibility</a>
+                    <a href="#">Help</a>
+                    <a href="#">Sign In</a>
+                </div>
             </div>
-            <a href="#contact" class="btn btn-primary">Get Started</a>
         </div>
-    </nav>
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="#" class="logo">Ferrousy Transit</a>
+                <div class="nav-links">
+                    <a href="#plan">Plan a Trip</a>
+                    <a href="#schedules">Schedules</a>
+                    <a href="#fares">Tickets & Fares</a>
+                    <a href="#status">Service Status</a>
+                </div>
+                <div class="nav-actions">
+                    <button class="btn btn-outline">Search</button>
+                </div>
+            </div>
+        </nav>
+        <div class="alert-banner">
+            <div class="alert-container">
+                <span class="alert-icon">⚠️</span>
+                <span class="alert-text"><strong>Service Update:</strong> Minor delays on the Lakeshore line due to track maintenance. <a href="#">Learn more</a></span>
+            </div>
+        </div>
+    </header>
 
     <main>
-        <section id="home" class="hero">
+        <section class="hero">
+            <div class="hero-bg"></div>
             <div class="hero-content">
-                <div class="badge">
-                    <span class="badge-dot"></span> Next-Gen Cloud Architecture
+                <div class="hero-text">
+                    <h1>Your journey starts here.</h1>
+                    <p>Fast, reliable, and connected. Plan your route across the Ferrousy network.</p>
                 </div>
-                <h1>Deploying the Future of <br><span class="text-gradient">Web Engineering</span></h1>
-                <p class="hero-subtitle">
-                    Serverless scaling, uncompromised speed, and a foundation built on absolute precision. Hosted natively on Google Cloud Run.
-                </p>
-                <div class="hero-actions">
-                    <a href="#explore" class="btn btn-primary btn-lg">Explore the Build</a>
-                    <a href="#docs" class="btn btn-secondary btn-lg">View Infrastructure</a>
+                <div class="hero-widget">
+                    <div class="widget-tabs">
+                        <button class="tab active">Plan a Trip</button>
+                        <button class="tab">Schedules</button>
+                        <button class="tab">Departures</button>
+                    </div>
+                    <div class="widget-body">
+                        <div class="input-group">
+                            <label>From</label>
+                            <input type="text" placeholder="Enter station or address">
+                        </div>
+                        <div class="input-group">
+                            <label>To</label>
+                            <input type="text" placeholder="Enter station or address">
+                        </div>
+                        <button class="btn btn-primary btn-block">Find Routes</button>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="features" class="features">
-            <div class="section-header">
-                <h2>Architectural <span class="text-gradient">Integrity</span></h2>
-                <p>Engineered from the ground up to ensure faultless performance and infinite scalability.</p>
+        <section class="services">
+            <div class="services-container">
+                <div class="section-header">
+                    <h2>Popular Services</h2>
+                </div>
+                <div class="grid">
+                    <a href="#" class="service-card">
+                        <div class="card-icon">🎟️</div>
+                        <h3>Buy E-Tickets</h3>
+                        <p>Purchase and manage your digital transit passes instantly.</p>
+                        <span class="card-link">Buy now &rarr;</span>
+                    </a>
+                    <a href="#" class="service-card">
+                        <div class="card-icon">🗺️</div>
+                        <h3>System Map</h3>
+                        <p>Explore the entire Ferrousy rail and bus network.</p>
+                        <span class="card-link">View map &rarr;</span>
+                    </a>
+                    <a href="#" class="service-card">
+                        <div class="card-icon">💼</div>
+                        <h3>Corporate Accounts</h3>
+                        <p>Manage employee transit passes and billing.</p>
+                        <span class="card-link">Learn more &rarr;</span>
+                    </a>
+                </div>
             </div>
-            
-            <div class="grid">
-                <div class="card glass">
-                    <div class="card-icon">⚡</div>
-                    <h3>Scale to Zero</h3>
-                    <p>Dynamic instance scaling directly on Google Cloud Run means absolute efficiency. Pay only when active.</p>
+        </section>
+        
+        <section class="news">
+            <div class="news-container">
+                <div class="section-header">
+                    <h2>Latest Updates</h2>
                 </div>
-                <div class="card glass">
-                    <div class="card-icon">🔐</div>
-                    <h3>Secure by Design</h3>
-                    <p>Containerized workloads encapsulated within Google Cloud Artifact Registry and strict boundary protections.</p>
-                </div>
-                <div class="card glass">
-                    <div class="card-icon">🚀</div>
-                    <h3>Instant CI/CD</h3>
-                    <p>Direct Google Cloud Build integrations bypassing legacy heavyweight infrastructure like Jenkins.</p>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <div class="news-date">June 15, 2026</div>
+                        <h3>Summer Weekend Passes Now Available</h3>
+                        <p>Enjoy unlimited travel across the network for a flat rate every weekend.</p>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-date">June 10, 2026</div>
+                        <h3>New Stations Opening on the East Line</h3>
+                        <p>Three new accessible stations are opening this fall.</p>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
     <footer>
-        <div class="footer-content glass">
-            <div class="footer-brand">
-                <p class="logo">Ferrousy.</p>
-                <p class="footer-tagline">Engineered in Montreal.</p>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <p class="logo-footer">Ferrousy Transit</p>
+                    <p>Connecting communities with reliable, safe, and efficient transportation.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>About Us</h4>
+                    <a href="#">Company Info</a>
+                    <a href="#">Careers</a>
+                    <a href="#">News</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Customer Service</h4>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Lost & Found</a>
+                    <a href="#">Accessibility</a>
+                </div>
             </div>
-            <p class="copyright">&copy; 2026 Ferrousy. All rights reserved.</p>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Ferrousy Transit. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Privacy Policy</a>
+                </div>
+            </div>
         </div>
     </footer>
 </body>
