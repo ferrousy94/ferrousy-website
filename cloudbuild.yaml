@@ -26,7 +26,7 @@ steps:
       - '--image'
       - 'northamerica-northeast1-docker.pkg.dev/ferrousy-website/ferrousy-repo/ferrousy-site:$BUILD_ID'
       - '--region'
-      - 'northamerica-northeast1'
+      - 'us-east4'
       - '--platform'
       - 'managed'
       - '--allow-unauthenticated'
