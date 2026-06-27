@@ -4,6 +4,7 @@ FROM nginx:alpine
 COPY *.html /usr/share/nginx/html/
 COPY *.css /usr/share/nginx/html/
 COPY *.js /usr/share/nginx/html/
+COPY *.svg /usr/share/nginx/html/
 
 # Expose the port (Cloud Run sets the PORT environment variable, usually 8080)
 # Update NGINX configuration to listen on the PORT environment variable
