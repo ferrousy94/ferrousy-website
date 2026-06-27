@@ -1,9 +1,25 @@
 # Agent notes — ferrousy-website
 
 Static personal site (Daniel Anania). Plain HTML/CSS/JS served by NGINX, no build
-step. The Dockerfile copies `*.html *.css *.js` into the image; auto-deploys to
-Cloud Run (`us-east4`, GCP project `ferrousy-website`) via a Cloud Build trigger
-on push to `main`. `.md` files are NOT deployed.
+step. The Dockerfile copies `*.html *.css *.js` into the image. `.md` files are
+NOT deployed.
+
+## Deploy (CI/CD)
+
+Push to `main` → auto-deploys. Set up 2026-06-27.
+
+- **Repo:** `ferrousy94/ferrousy-website` (this repo)
+- **GCP project:** `ferrousy-website` (shares the project with the whatpeoplepaid
+  *website*, which has its own `whatpeoplepaid-trigger` — don't confuse them)
+- **Cloud Build trigger:** `ferrousy-site-trigger` (global), `^main$` →
+  `cloudbuild.yaml`, runs as `658348562858-compute@developer.gserviceaccount.com`
+- **Cloud Run service:** `ferrousy-site` in **`us-east4`**
+  (`https://ferrousy-site-l2tscekfba-uk.a.run.app`), custom domain
+  **`danielanania.com`**
+- The repo is connected via the 1st-gen Cloud Build GitHub App. To force a deploy
+  without a commit: `gcloud builds triggers run ferrousy-site-trigger --branch main
+  --project ferrousy-website --region global`. CLIs (`gcloud`/`firebase`) on this
+  machine are authed as d5anania@gmail.com, so agents can run all of this directly.
 
 ## Firebase access (for the Budgeting Dashboard)
 
