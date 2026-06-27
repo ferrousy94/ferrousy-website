@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budgeting Dashboard</title>
+    <meta name="description" content="Private budgeting dashboard.">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="utilities.css">
+    <link rel="stylesheet" href="budget.css">
+</head>
+<body>
+    <!-- ===================== Loading (initial auth check) ===================== -->
+    <div class="budget-state" id="state-loading">
+        <div class="budget-spinner"></div>
+        <p>Checking access…</p>
+    </div>
+
+    <!-- ===================== Setup required (config not filled in) ============ -->
+    <div class="budget-state" id="state-setup" hidden>
+        <div class="gate-card">
+            <div class="gate-icon">🛠️</div>
+            <h1>Setup required</h1>
+            <p>Fill in your Firebase project details in <code>budget-config.js</code> to enable the private dashboard. See the comments at the top of that file for the one-time setup steps.</p>
+            <a href="utilities.html" class="back-link">&larr; Back to Utilities</a>
+        </div>
+    </div>
+
+    <!-- ===================== Sign-in gate (not authenticated) ================= -->
+    <div class="budget-state" id="state-signin" hidden>
+        <div class="gate-card">
+            <div class="gate-icon">🔒</div>
+            <h1>Budgeting Dashboard</h1>
+            <p>This area is private. Sign in to continue.</p>
+            <button class="btn-google" id="btn-signin">
+                <span class="g-logo">G</span> Sign in with Google
+            </button>
+            <a href="utilities.html" class="back-link">&larr; Back to Utilities</a>
+        </div>
+    </div>
+
+    <!-- ===================== Access denied (signed in, not owner) ============= -->
+    <div class="budget-state" id="state-denied" hidden>
+        <div class="gate-card">
+            <div class="gate-icon" id="denied-icon">⛔</div>
+            <h1 id="denied-title">Access denied</h1>
+            <p id="denied-msg">This account isn't authorized to view this dashboard.</p>
+            <p class="denied-uid" id="denied-uid" hidden></p>
+            <button class="btn-secondary" id="btn-signout-denied">Sign out</button>
+            <a href="utilities.html" class="back-link">&larr; Back to Utilities</a>
+        </div>
+    </div>
+
+    <!-- ===================== Dashboard (owner) ================================ -->
+    <div class="dashboard-wrapper budget-dashboard" id="state-dashboard" hidden>
+        <header class="dashboard-header">
+            <div>
+                <a href="utilities.html" class="back-link">&larr; Back to Utilities</a>
+                <h1 class="logo" style="margin-top: 0.5rem;">💰 Budgeting Dashboard</h1>
+            </div>
+            <div class="budget-user">
+                <span id="user-email" class="budget-user-email"></span>
+                <button class="btn-secondary" id="btn-signout">Sign out</button>
+            </div>
+        </header>
+
+        <!-- Upload statements -->
+        <section class="widget budget-upload-widget">
+            <header class="widget-header">
+                <h2>📄 Upload statements</h2>
+                <span class="status-badge">CSV / PDF</span>
+            </header>
+            <div class="widget-body">
+                <label class="dropzone" id="dropzone" for="file-input">
+                    <input type="file" id="file-input" accept=".csv,.pdf,.qfx,.ofx" multiple hidden>
+                    <div class="dropzone-icon">⬆️</div>
+                    <p class="dropzone-title">Drop bank statements here or click to browse</p>
+                    <p class="dropzone-hint">CSV, PDF, QFX/OFX — your statements stay in your account</p>
+                </label>
+                <ul class="upload-list" id="upload-list"></ul>
+                <p class="upload-note" id="upload-note" hidden>
+                    Parsing isn't wired up yet — this is the upload framework. Next step: send these
+                    files to a parser (e.g. a Cloud Function) and write transactions to Firestore.
+                </p>
+            </div>
+        </section>
+
+        <!-- Summary stat cards -->
+        <section class="stat-grid" aria-label="Summary">
+            <div class="stat-tile">
+                <span class="stat-tile-label">Total balance</span>
+                <span class="stat-tile-value" id="kpi-balance">—</span>
+                <span class="stat-tile-sub">across all accounts</span>
+            </div>
+            <div class="stat-tile">
+                <span class="stat-tile-label">Income (this month)</span>
+                <span class="stat-tile-value positive" id="kpi-income">—</span>
+                <span class="stat-tile-sub">money in</span>
+            </div>
+            <div class="stat-tile">
+                <span class="stat-tile-label">Expenses (this month)</span>
+                <span class="stat-tile-value negative" id="kpi-expenses">—</span>
+                <span class="stat-tile-sub">money out</span>
+            </div>
+            <div class="stat-tile">
+                <span class="stat-tile-label">Net cashflow</span>
+                <span class="stat-tile-value" id="kpi-net">—</span>
+                <span class="stat-tile-sub">income − expenses</span>
+            </div>
+        </section>
+
+        <div class="budget-grid">
+            <!-- Spending by category -->
+            <section class="widget">
+                <header class="widget-header">
+                    <h2>📊 Spending by category</h2>
+                </header>
+                <div class="widget-body">
+                    <div class="empty-state" id="categories-empty">
+                        <p>No data yet. Upload statements to see where your money goes.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Accounts -->
+            <section class="widget">
+                <header class="widget-header">
+                    <h2>🏦 Accounts</h2>
+                </header>
+                <div class="widget-body">
+                    <div class="empty-state" id="accounts-empty">
+                        <p>No accounts yet. Each uploaded statement becomes an account here.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Recent transactions -->
+        <section class="widget">
+            <header class="widget-header">
+                <h2>🧾 Recent transactions</h2>
+            </header>
+            <div class="widget-body">
+                <div class="empty-state" id="transactions-empty">
+                    <p>No transactions yet. They'll appear here once statements are parsed.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="dashboard-footer">
+            <p>&copy; 2026 Personal Dashboard — private</p>
+        </footer>
+    </div>
+
+    <script type="module" src="budget.js"></script>
+</body>
+</html>
