@@ -11,8 +11,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Animated background gradient -->
-    <div class="bg-gradient"></div>
+
 
     <!-- Navigation -->
     <nav class="nav" id="nav">
@@ -73,8 +72,30 @@
         </div>
     </section>
 
+    <!-- Featured Project -->
+    <section class="section section-alt" id="projects">
+        <div class="container">
+            <div class="section-label">Featured Work</div>
+            <h2 class="section-title" style="margin-bottom: 2rem;">What People Paid</h2>
+            <div class="about-grid" style="align-items: center; gap: 4rem;">
+                <div class="about-text">
+                    <p style="font-size: 1.1rem; line-height: 1.7; color: var(--text-secondary); margin-bottom: 1.5rem;">A crowdsourced platform bringing transparency to big purchases. I built this to help people see real, verified prices on cars, flights, stays, and more.</p>
+                    <div class="hero-tech" style="justify-content: flex-start; margin-bottom: 2rem;">
+                        <span>Firebase</span>
+                        <span>Vanilla JS</span>
+                        <span>Cloud Run</span>
+                    </div>
+                    <a href="https://whatpeoplepaid.fyi" target="_blank" rel="noopener" class="hero-cta" style="padding: 0.75rem 2rem;">Visit What People Paid &rarr;</a>
+                </div>
+                <div style="background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 3rem; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-card);">
+                    <img src="wpp-favicon.svg" alt="What People Paid Logo" style="width: 120px; height: 120px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Experience -->
-    <section class="section section-alt" id="experience">
+    <section class="section" id="experience">
         <div class="container">
             <div class="section-label">Experience</div>
             <h2 class="section-title">Where I've Worked</h2>
@@ -201,7 +222,7 @@
     </section>
 
     <!-- Education -->
-    <section class="section" id="education">
+    <section class="section section-alt" id="education">
         <div class="container">
             <div class="section-label">Education</div>
             <h2 class="section-title">Background</h2>
