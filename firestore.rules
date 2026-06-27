@@ -1,0 +1,28 @@
+rules_version = '2';
+
+// Budgeting Dashboard data — readable only by the owner. ALL writes happen
+// server-side through Cloud Functions (admin SDK), so client writes are denied.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isOwner() {
+      return request.auth != null
+        && request.auth.uid == 'qYHwglRT1fO9X6FRkSGgcoDS1nj1';
+    }
+
+    match /statements/{id} {
+      allow read: if isOwner();
+      allow write: if false;
+    }
+
+    match /transactions/{id} {
+      allow read: if isOwner();
+      allow write: if false;
+    }
+
+    // Deny everything else by default.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
